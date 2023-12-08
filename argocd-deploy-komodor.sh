@@ -25,6 +25,9 @@ done
 echo -e "\n\nSetting up port forward for Argo CD API server."
 kubectl port-forward --address 0.0.0.0 svc/argocd-server -n argocd 8080:443 > /dev/null 2>&1 &
 
+# Insert sleep because it sometimes takes a bit for the port forward to be active
+sleep 2
+
 ARGOCD_INITIAL_PASSWORD=`argocd admin initial-password -n argocd | head -n 1`
 
 echo -e "\nLogging in to Argo CD to change initial password.\n"
