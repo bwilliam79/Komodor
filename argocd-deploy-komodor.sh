@@ -46,13 +46,13 @@ helm upgrade --install k8s-watcher komodorio/k8s-watcher \
  --set watcher.enableAgentTaskExecution=true \
  --set watcher.allowReadingPodLogs=true >> $LOG_FILE 2>&1
 
-#echo -en "Waiting for things to settle."
-# COUNTER=0
-# while [ $COUNTER -lt 10 ]; do
-#    let COUNTER=COUNTER+1
-#    echo -n "."
-#    sleep 1
-#done
+echo -en "Waiting for things to settle."
+ COUNTER=0
+ while [ $COUNTER -lt 10 ]; do
+    let COUNTER=COUNTER+1
+    echo -n "."
+    sleep 1
+done
 
 echo -e "Deploying nginx via Argo CD.\n"
 kubectl create namespace web-services >> $LOG_FILE 2>&1
