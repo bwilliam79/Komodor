@@ -52,12 +52,14 @@ helm upgrade --install k8s-watcher komodorio/k8s-watcher \
 done
 
 echo -e "\n\nDeploying nginx via Argo CD.\n"
-kubectl config set-context --current --namespace=argocd >> $LOG_FILE 2>&1
 kubectl create namespace web-services >> $LOG_FILE 2>&1
 argocd app create nginx --repo https://github.com/bwilliam79/Komodor-App.git --dest-server https://kubernetes.default.svc --path nginx --dest-namespace web-services >> $LOG_FILE 2>&1
 argocd app sync nginx >> $LOG_FILE 2>&1
 argocd app set nginx --sync-policy automated --sync-option Replace=true >> $LOG_FILE 2>&1
+kubectl port-forward --address 0.0.0.0 svc/nginx -n web-services 8088:80 > /dev/null 2>&1 &
 
 printf "You can now access the Argo CD dashboard at \033[33;32mhttp://$HOSTNAME:8080\033[33;37m\n"
 echo -e "\nUsername: admin"
 echo -e "Password: $ARGOCD_PASSWORD\n"
+
+printf "You can now access the nginx deployment at \033[33;32mhttp://$HOSTNAME:8088\033[33;37m\n"
