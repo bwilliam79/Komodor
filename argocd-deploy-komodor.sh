@@ -6,7 +6,7 @@
 ARGOCD_PASSWORD="Komodor!"
 
 # Log file for output
-LOG_FILE=~/argocd-deploy-komodor.log
+LOG_FILE=./argocd-deploy-komodor.log
 
 echo -e "Deploying Argo CD.\n"
 kubectl create namespace argocd > $LOG_FILE 2>&1
