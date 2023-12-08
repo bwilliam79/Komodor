@@ -32,7 +32,7 @@ argocd login komodor:8080 --insecure --username admin --password $ARGOCD_INITIAL
 argocd account update-password --current-password $ARGOCD_INITIAL_PASSWORD --new-password $ARGOCD_PASSWORD >> $LOG_FILE 2>&1
 
 echo -e "Registering minikube cluster with Argo CD.\n"
-argocd cluster add minikube >> $LOG_FILE 2>&1
+argocd cluster add minikube -y >> $LOG_FILE 2>&1
 
 echo -e "Deploying Komodor.\n"
 helm repo add komodorio https://helm-charts.komodor.io >> $LOG_FILE 2>&1
