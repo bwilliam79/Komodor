@@ -41,11 +41,9 @@ echo -e "Deploying Komodor.\n"
 helm repo add komodorio https://helm-charts.komodor.io >> $LOG_FILE 2>&1
 helm repo update >> $LOG_FILE 2>&1
 helm upgrade --install k8s-watcher komodorio/k8s-watcher \
- --set apiKey=0571d066-150f-4430-926c-cc5fd764ed13 \
- --set watcher.resources.secret=true \
- --set watcher.enableHelm=true \
- --set helm.enableActions=true \
+ --set apiKey=70677d8a-9ae7-435d-89af-9d4853fa18df \
  --set watcher.clusterName=minikube \
+ --timeout=90s \
  --set watcher.enableAgentTaskExecution=true \
  --set watcher.allowReadingPodLogs=true >> $LOG_FILE 2>&1
 
@@ -57,7 +55,7 @@ echo -en "Waiting for things to settle."
     sleep 1
 done
 
-echo -e "Deploying nginx via Argo CD.\n"
+echo -e "\n\nDeploying nginx via Argo CD.\n"
 kubectl create namespace web-services >> $LOG_FILE 2>&1
 argocd app create nginx-$RANDOM_NAME --repo https://github.com/bwilliam79/Komodor-App.git --dest-server https://kubernetes.default.svc --path nginx --dest-namespace web-services >> $LOG_FILE 2>&1
 argocd app set nginx-$RANDOM_NAME --sync-option Replace=true >> $LOG_FILE 2>&1
