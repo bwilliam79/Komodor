@@ -61,7 +61,7 @@ argocd app set nginx-$RANDOM_NAME --sync-option Replace=true >> $LOG_FILE 2>&1
 argocd app sync nginx-$RANDOM_NAME >> $LOG_FILE 2>&1
 
 echo -en "Waiting for nginx deployment to complete."
-until kubectl get pods -n web-services | grep nginx | grep -i 'running' >> $LOG_FILE 2>&1
+until kubectl get pods -n web-services | grep nginx | grep -i 'running' | grep 1/1 >> $LOG_FILE 2>&1
 do
     echo -n "."
     sleep 2
