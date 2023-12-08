@@ -16,7 +16,7 @@ kubectl create namespace argocd > $LOG_FILE 2>&1
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml >> $LOG_FILE 2>&1
 
 echo -en "Waiting for Argo CD deployment to complete."
-until kubectl get pods -n argocd | grep argocd-server | grep -i 'running' >> $LOG_FILE 2>&1
+until kubectl get pods -n argocd | grep argocd-server | grep -i 'running' | grep 1/1 >> $LOG_FILE 2>&1
 do
     echo -n "."
     sleep 2
