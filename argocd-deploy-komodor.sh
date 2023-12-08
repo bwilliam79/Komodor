@@ -41,7 +41,7 @@ echo -e "Deploying Komodor.\n"
 helm repo add komodorio https://helm-charts.komodor.io >> $LOG_FILE 2>&1
 helm repo update >> $LOG_FILE 2>&1
 helm upgrade --install k8s-watcher komodorio/k8s-watcher \
- --set apiKey=80f122f0-03e2-4c1a-bed0-74570a239975 \
+ --set apiKey=52710673-b09b-4127-98b2-8c764e97cc86 \
  --set watcher.resources.secret=true \
  --set watcher.enableHelm=true \
  --set helm.enableActions=true \
