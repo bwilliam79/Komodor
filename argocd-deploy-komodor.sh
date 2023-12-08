@@ -8,6 +8,9 @@ ARGOCD_PASSWORD="Komodor!"
 # Log file for output
 LOG_FILE=./argocd-deploy-komodor.log
 
+# Generate random string for unique deployment naming
+RANDOM_NAME=`cat /dev/urandom | tr -cd 'a-f0-9' | head -c 8`
+
 echo -e "Deploying Argo CD.\n"
 kubectl create namespace argocd > $LOG_FILE 2>&1
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml >> $LOG_FILE 2>&1
@@ -53,9 +56,9 @@ done
 
 echo -e "\n\nDeploying nginx via Argo CD.\n"
 kubectl create namespace web-services >> $LOG_FILE 2>&1
-argocd app create nginx --repo https://github.com/bwilliam79/Komodor-App.git --dest-server https://kubernetes.default.svc --path nginx --dest-namespace web-services >> $LOG_FILE 2>&1
-argocd app set nginx --sync-option Replace=true >> $LOG_FILE 2>&1
-argocd app sync nginx >> $LOG_FILE 2>&1
+argocd app create nginx-$RANDOM_NAME --repo https://github.com/bwilliam79/Komodor-App.git --dest-server https://kubernetes.default.svc --path nginx --dest-namespace web-services >> $LOG_FILE 2>&1
+argocd app set nginx-$RANDOM_NAME --sync-option Replace=true >> $LOG_FILE 2>&1
+argocd app sync nginx-$RANDOM_NAME >> $LOG_FILE 2>&1
 
 echo -en "Waiting for nginx deployment to complete."
 until kubectl get pods -n web-services | grep nginx | grep -i 'running' >> $LOG_FILE 2>&1
@@ -65,10 +68,12 @@ do
 done
 
 echo -e "\n\nSetting up port forward for nginx."
-kubectl port-forward --address 0.0.0.0 svc/nginx -n web-services 8088:80 > /dev/null 2>&1 &
+kubectl port-forward --address 0.0.0.0 svc/nginx-$RANDOM_NAME -n web-services 8088:80 > /dev/null 2>&1 &
 
 printf "You can now access the Argo CD dashboard at \033[33;32mhttp://$HOSTNAME:8080\033[33;37m\n"
 echo -e "\nUsername: admin"
 echo -e "Password: $ARGOCD_PASSWORD\n"
 
 printf "You can now access the nginx deployment at \033[33;32mhttp://$HOSTNAME:8088\033[33;37m\n"
+
+echo -e "\nDeployment name: nginx-$RANDOM_NAME"
