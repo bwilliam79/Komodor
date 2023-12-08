@@ -9,7 +9,7 @@ ARGOCD_PASSWORD="Komodor!"
 LOG_FILE=./argocd-deploy-komodor.log
 
 # Generate random string for unique deployment naming
-RANDOM_NAME=`cat /dev/urandom | tr -cd 'a-f0-9' | head -c 8`
+RANDOM_DEPLOYMENT_NAME=`cat /dev/urandom | tr -cd 'a-f0-9' | head -c 8`
 
 echo -e "Deploying Argo CD.\n"
 kubectl create namespace argocd > $LOG_FILE 2>&1
