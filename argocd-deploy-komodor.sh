@@ -54,7 +54,7 @@ helm upgrade --install k8s-watcher komodorio/k8s-watcher \
 #    sleep 1
 #done
 
-echo -e "\n\nDeploying nginx via Argo CD.\n"
+echo -e "Deploying nginx via Argo CD.\n"
 kubectl create namespace web-services >> $LOG_FILE 2>&1
 argocd app create nginx-$RANDOM_NAME --repo https://github.com/bwilliam79/Komodor-App.git --dest-server https://kubernetes.default.svc --path nginx --dest-namespace web-services >> $LOG_FILE 2>&1
 argocd app set nginx-$RANDOM_NAME --sync-option Replace=true >> $LOG_FILE 2>&1
