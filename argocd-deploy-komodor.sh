@@ -60,12 +60,17 @@ helm upgrade --install k8s-watcher komodorio/k8s-watcher \
     sleep 1
 done
 
-echo -e "\n\nDeploying example app on Argo CD.\n"
-kubectl config set-context --current --namespace=argocd >> $LOG_FILE 2>&1
-kubectl create namespace guestbook >> $LOG_FILE 2>&1
-argocd app create guestbook --repo https://github.com/argoproj/argocd-example-apps.git --path guestbook --dest-server https://kubernetes.default.svc --dest-namespace guestbook >> $LOG_FILE 2>&1
-argocd app sync guestbook >> $LOG_FILE 2>&1
+#echo -e "\n\nDeploying example app on Argo CD.\n"
+#kubectl config set-context --current --namespace=argocd >> $LOG_FILE 2>&1
+#kubectl create namespace guestbook >> $LOG_FILE 2>&1
+#argocd app create guestbook --repo https://github.com/argoproj/argocd-example-apps.git --path guestbook --dest-server https://kubernetes.default.svc --dest-namespace guestbook >> $LOG_FILE 2>&1
+#argocd app sync guestbook >> $LOG_FILE 2>&1
 
+echo -e "\n\nDeploying nginx via Argo CD.\n"
+kubectl config set-context --current --namespace=argocd >> $LOG_FILE 2>&1
+kubectl create namespace web-services >> $LOG_FILE 2>&1
+argocd app create nginx --repo https://github.com/bwilliam79/Komodor-App.git --dest-server https://kubernetes.default.svc --dest-namespace web-services >> $LOG_FILE 2>&1
+argocd app sync nginx >> $LOG_FILE 2>&1
 
 printf "You can now access the Argo CD dashboard at \033[33;32mhttp://$HOSTNAME:8080\033[33;37m\n"
 echo -e "\nUsername: admin"
