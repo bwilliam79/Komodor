@@ -14,17 +14,21 @@ helm repo update >> $LOG_FILE 2>&1
 helm upgrade --install k8s-watcher komodorio/k8s-watcher \
  --set apiKey=$API_KEY \
  --set watcher.clusterName=kind \
- --timeout=90s \
- --set watcher.enableAgentTaskExecution=true \
- --set watcher.allowReadingPodLogs=true >> $LOG_FILE 2>&1
+ --timeout=90s >> $LOG_FILE 2>&1
 
 sleep 5
 
+COUNTER=0
 echo -en "Waiting for Komodor deployment to complete."
 until kubectl get pods -n komodor | grep k8s-watcher | grep -i 'running' | grep 4/4 >> $LOG_FILE 2>&1
 do
+    ((COUNTER+=1))
     echo -n "."
     sleep 2
+    if [ $COUTER -eq 45 ]; then
+        echo -e "\nKmomodor deployment failed to complete!"
+        exit 1
+    fi
 done
 
 echo -e "\nKomodor deployment complete!"
