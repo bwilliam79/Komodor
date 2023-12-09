@@ -26,7 +26,7 @@ do
     echo -n "."
     sleep 2
     if [ $COUNTER -eq 45 ]; then
-        printf "\n\n\033[33;32mKmomodor deployment failed to complete!\033[33;37m\n"
+        printf "\n\033[33;31mKmomodor deployment failed to complete\041\033[33;37m\n"
         exit 1
     fi
 done
