@@ -34,4 +34,4 @@ do
     fi
 done
 
-echo -e "\nKomodor deployment complete!"
+echo -e "\n\nKomodor deployment complete!"
