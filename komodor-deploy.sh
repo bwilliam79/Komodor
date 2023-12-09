@@ -5,7 +5,7 @@
 # Log file for output
 LOG_FILE=./komodor-deploy.log
 
-echo -e "Enter Komodor API Key:\n"
+echo -e "Enter Komodor API Key:"
 read $API_KEY
 
 echo -e "Deploying Komodor.\n"
