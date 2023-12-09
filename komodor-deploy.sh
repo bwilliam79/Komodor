@@ -13,7 +13,7 @@ helm repo add komodorio https://helm-charts.komodor.io > $LOG_FILE 2>&1
 helm repo update >> $LOG_FILE 2>&1
 helm upgrade --install k8s-watcher komodorio/k8s-watcher \
  --set apiKey=$API_KEY \
- --set watcher.clusterName=kind-kind \
+ --set watcher.clusterName=kind \
  --timeout=90s \
  --set watcher.enableAgentTaskExecution=true \
  --set watcher.allowReadingPodLogs=true >> $LOG_FILE 2>&1
