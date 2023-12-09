@@ -1,6 +1,6 @@
 #!/bin/bash
 # 12/07/2023 - Brandon Williams
-# Shell script to speed up Minikube and Argo CD deployment
+# Shell script to speed up Komodor demo environment
 
 # Password to use for Argo CD admin account
 ARGOCD_PASSWORD="Komodor!"
@@ -34,15 +34,15 @@ echo -e "\nLogging in to Argo CD to change initial password.\n"
 argocd login komodor:8080 --insecure --username admin --password $ARGOCD_INITIAL_PASSWORD >> $LOG_FILE 2>&1
 argocd account update-password --current-password $ARGOCD_INITIAL_PASSWORD --new-password $ARGOCD_PASSWORD >> $LOG_FILE 2>&1
 
-echo -e "Registering minikube cluster with Argo CD.\n"
-argocd cluster add minikube -y >> $LOG_FILE 2>&1
+echo -e "Registering k8s cluster with Argo CD.\n"
+argocd cluster add kind-kind -y >> $LOG_FILE 2>&1
 
 echo -e "Deploying Komodor.\n"
 helm repo add komodorio https://helm-charts.komodor.io >> $LOG_FILE 2>&1
 helm repo update >> $LOG_FILE 2>&1
 helm upgrade --install k8s-watcher komodorio/k8s-watcher \
- --set apiKey=70677d8a-9ae7-435d-89af-9d4853fa18df \
- --set watcher.clusterName=minikube \
+ --set apiKey=5be49593-8121-4e7a-9f9c-6d7c4f7acf42 \
+ --set watcher.clusterName=kind \
  --timeout=90s \
  --set watcher.enableAgentTaskExecution=true \
  --set watcher.allowReadingPodLogs=true >> $LOG_FILE 2>&1
