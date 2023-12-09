@@ -25,7 +25,7 @@ do
     ((COUNTER+=1))
     echo -n "."
     sleep 2
-    if [ $COUTER -eq 45 ]; then
+    if [ $COUNTER -eq 45 ]; then
         echo -e "\nKmomodor deployment failed to complete!"
         exit 1
     fi
