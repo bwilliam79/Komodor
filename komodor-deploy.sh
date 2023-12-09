@@ -5,7 +5,10 @@
 # Log file for output
 LOG_FILE=./komodor-deploy.log
 
-echo -e "Enter Komodor API Key:"
+echo -e "Enter k8s cluster name:
+read K8S_CLUSTER_NAME
+
+echo -e "Enter Komodor API key:"
 read API_KEY
 
 echo -e "\nDeploying Komodor.\n"
@@ -13,7 +16,7 @@ helm repo add komodorio https://helm-charts.komodor.io >> $LOG_FILE 2>&1
 helm repo update >> $LOG_FILE 2>&1
 helm upgrade --install k8s-watcher komodorio/k8s-watcher \
  --set apiKey=$API_KEY \
- --set watcher.clusterName=kind-kind \
+ --set watcher.clusterName=$K8S_CLUSTER_NAME \
  --timeout=90s >> $LOG_FILE 2>&1
 
 sleep 5

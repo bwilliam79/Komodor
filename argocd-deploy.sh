@@ -8,7 +8,10 @@ ARGOCD_PASSWORD="Komodor!"
 # Log file for output
 LOG_FILE=./argocd-deploy.log
 
-echo -e "Deploying Argo CD.\n"
+echo -e "Enter k8s cluster name:
+read K8S_CLUSTER_NAME
+
+echo -e "\nDeploying Argo CD.\n"
 kubectl create namespace argocd > $LOG_FILE 2>&1
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml >> $LOG_FILE 2>&1
 
@@ -34,7 +37,7 @@ argocd login komodor:8080 --insecure --username admin --password $ARGOCD_INITIAL
 argocd account update-password --current-password $ARGOCD_INITIAL_PASSWORD --new-password $ARGOCD_PASSWORD >> $LOG_FILE 2>&1
 
 echo -e "Registering k8s cluster with Argo CD.\n"
-argocd cluster add kind-kind -y >> $LOG_FILE 2>&1
+argocd cluster add $K8S_CLUSTER_NAME -y >> $LOG_FILE 2>&1
 
 printf "You can now access the Argo CD dashboard at \033[33;32mhttp://$HOSTNAME:8080\033[33;37m\n"
 echo -e "\nUsername: admin"
