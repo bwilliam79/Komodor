@@ -5,7 +5,7 @@
 # Log file for output
 LOG_FILE=./komodor-deploy.log
 
-echo -e "Enter k8s cluster name:
+echo -e "Enter k8s cluster name:"
 read K8S_CLUSTER_NAME
 
 echo -e "Enter Komodor API key:"

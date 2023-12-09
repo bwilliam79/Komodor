@@ -8,7 +8,7 @@ ARGOCD_PASSWORD="Komodor!"
 # Log file for output
 LOG_FILE=./argocd-deploy.log
 
-echo -e "Enter k8s cluster name:
+echo -e "Enter k8s cluster name:"
 read K8S_CLUSTER_NAME
 
 echo -e "\nDeploying Argo CD.\n"
