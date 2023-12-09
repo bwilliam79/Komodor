@@ -8,8 +8,7 @@ LOG_FILE=./komodor-deploy.log
 echo -e "Enter Komodor API Key:"
 read API_KEY
 
-echo -e "Deploying Komodor.\n"
-kubectl create namespace komodor > $LOG_FILE 2>&1
+echo -e "\nDeploying Komodor.\n"
 helm repo add komodorio https://helm-charts.komodor.io >> $LOG_FILE 2>&1
 helm repo update >> $LOG_FILE 2>&1
 helm upgrade --install k8s-watcher komodorio/k8s-watcher \
