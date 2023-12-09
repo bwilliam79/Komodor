@@ -14,7 +14,7 @@ LOG_FILE=./nginx-deploy.log
 echo -e "Logging in to Argo CD\n"
 argocd login komodor:8080 --insecure --username admin --password $ARGOCD_PASSWORD > $LOG_FILE 2>&1
 
-echo -e "\n\nDestroying nginx via Argo CD.\n"
+echo -e "Destroying nginx via Argo CD.\n"
 argocd app delete nginx >> $LOG_FILE 2>&1
 
-echo -e "\nnginx deployment destroyed!"
+echo -e "nginx deployment destroyed!"

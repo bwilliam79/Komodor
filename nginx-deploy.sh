@@ -11,7 +11,7 @@ LOG_FILE=./nginx-deploy.log
 echo -e "Logging in to Argo CD\n"
 argocd login komodor:8080 --insecure --username admin --password $ARGOCD_PASSWORD > $LOG_FILE 2>&1
 
-echo -e "\n\nDeploying nginx via Argo CD.\n"
+echo -e "Deploying nginx via Argo CD.\n"
 kubectl create namespace web-services >> $LOG_FILE 2>&1
 argocd app create nginx --repo https://github.com/bwilliam79/Komodor-App.git --dest-server https://kubernetes.default.svc --path nginx --dest-namespace web-services >> $LOG_FILE 2>&1
 argocd app set nginx --sync-option Replace=true >> $LOG_FILE 2>&1
@@ -24,7 +24,7 @@ do
     sleep 2
 done
 
-echo -e "\n\nSetting up port forward for nginx."
+echo -e "\n\nSetting up port forward for nginx.\n"
 kubectl port-forward --address 0.0.0.0 svc/nginx -n web-services 8088:80 > /dev/null 2>&1 &
 
 printf "You can now access the nginx deployment at \033[33;32mhttp://$HOSTNAME:8088\033[33;37m\n"
