@@ -34,7 +34,7 @@ argocd login komodor:8080 --insecure --username admin --password $ARGOCD_INITIAL
 argocd account update-password --current-password $ARGOCD_INITIAL_PASSWORD --new-password $ARGOCD_PASSWORD >> $LOG_FILE 2>&1
 
 echo -e "Registering k8s cluster with Argo CD.\n"
-argocd cluster add kind-kind -y >> $LOG_FILE 2>&1
+argocd cluster add kind -y >> $LOG_FILE 2>&1
 
 printf "You can now access the Argo CD dashboard at \033[33;32mhttp://$HOSTNAME:8080\033[33;37m\n"
 echo -e "\nUsername: admin"
