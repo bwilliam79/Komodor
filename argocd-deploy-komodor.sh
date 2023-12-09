@@ -71,7 +71,7 @@ do
 done
 
 echo -e "\n\nSetting up port forward for nginx."
-kubectl port-forward --address 0.0.0.0 svc/nginx-$RANDOM_NAME -n web-services 8088:80 > /dev/null 2>&1 &
+kubectl port-forward --address 0.0.0.0 svc/nginx -n web-services 8088:80 > /dev/null 2>&1 &
 
 printf "You can now access the Argo CD dashboard at \033[33;32mhttp://$HOSTNAME:8080\033[33;37m\n"
 echo -e "\nUsername: admin"
