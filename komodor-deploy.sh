@@ -13,7 +13,7 @@ helm repo add komodorio https://helm-charts.komodor.io >> $LOG_FILE 2>&1
 helm repo update >> $LOG_FILE 2>&1
 helm upgrade --install k8s-watcher komodorio/k8s-watcher \
  --set apiKey=$API_KEY \
- --set watcher.clusterName=kind \
+ --set watcher.clusterName=kind-kind \
  --timeout=90s >> $LOG_FILE 2>&1
 
 sleep 5
@@ -26,7 +26,7 @@ do
     echo -n "."
     sleep 2
     if [ $COUNTER -eq 45 ]; then
-        echo -e "\n\nKmomodor deployment failed to complete!"
+        printf "\n\n\033[33;32mKmomodor deployment failed to complete!\033[33;37m\n"
         exit 1
     fi
 done
