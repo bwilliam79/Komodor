@@ -17,4 +17,4 @@ argocd app create javaapp --repo https://github.com/bwilliam79/Komodor-App.git -
 argocd app set javaapp --sync-option Replace=true >> $LOG_FILE 2>&1
 argocd app sync javaapp >> $LOG_FILE 2>&1
 
-echo -e "\n\nOOM Simulator deployed."
+echo -e "OOM Simulator deployed."
