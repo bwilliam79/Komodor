@@ -12,6 +12,6 @@ echo -e "Logging in to Argo CD\n"
 argocd login komodor:8080 --insecure --username admin --password $ARGOCD_PASSWORD > $LOG_FILE 2>&1
 
 echo -e "Destroying OOM simulator via Argo CD.\n"
-argocd app delete javaapp >> $LOG_FILE 2>&1
+argocd app delete badapp >> $LOG_FILE 2>&1
 
 echo -e "OOM simulator deployment destroyed!"
