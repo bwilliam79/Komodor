@@ -1,5 +1,5 @@
 #!/bin/bash
-# 12/07/2023 - Brandon Williams
+# 06/20/2024 - Brandon Williams
 # Shell script to speed up Komodor demo environment
 
 # Log file for output
