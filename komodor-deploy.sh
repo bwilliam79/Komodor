@@ -24,7 +24,7 @@ sleep 5
 
 COUNTER=0
 echo -en "Waiting for Komodor deployment to complete."
-until kubectl get pods -n komodor | grep k8s-watcher | grep -i 'running' | grep 4/4 >> $LOG_FILE 2>&1
+until kubectl get pods -n default | grep komodor-agent | grep -i 'running' | grep 4/4 >> $LOG_FILE 2>&1
 do
     ((COUNTER+=1))
     echo -n "."
