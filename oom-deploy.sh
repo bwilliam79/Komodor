@@ -12,7 +12,7 @@ echo -e "Logging in to Argo CD\n"
 argocd login komodor:8080 --insecure --username admin --password $ARGOCD_PASSWORD > $LOG_FILE 2>&1
 
 echo -e "Deploying OOM simulator via Argo CD.\n"
-kubectl create namespace oom-simulator >> $LOG_FILE 2>&1
+kubectl create namespace badapp >> $LOG_FILE 2>&1
 argocd app create badapp --repo https://github.com/bwilliam79/Komodor-App.git --dest-server https://kubernetes.default.svc --path badapp --dest-namespace badapp >> $LOG_FILE 2>&1
 argocd app set badapp --sync-option Replace=true >> $LOG_FILE 2>&1
 argocd app sync badapp >> $LOG_FILE 2>&1
