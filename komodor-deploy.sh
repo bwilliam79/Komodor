@@ -14,10 +14,11 @@ read API_KEY
 echo -e "\nDeploying Komodor.\n"
 helm repo add komodorio https://helm-charts.komodor.io >> $LOG_FILE 2>&1
 helm repo update >> $LOG_FILE 2>&1
-helm upgrade --install k8s-watcher komodorio/k8s-watcher \
+helm install komodor-agent komodorio/komodor-agent \
  --set apiKey=$API_KEY \
- --set watcher.clusterName=$K8S_CLUSTER_NAME \
- --timeout=90s >> $LOG_FILE 2>&1
+ --set clusterName=$K8S_CLUSTER_NAME \
+ --timeout=90s \
+ && start https://app.komodor.com/main/services >> $LOG_FILE 2>&1
 
 sleep 5
 
