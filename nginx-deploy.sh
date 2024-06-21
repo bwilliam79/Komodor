@@ -24,7 +24,7 @@ do
     sleep 2
 done
 
-echo -e "\n\nSetting up port forward for nginx.\n"
-kubectl port-forward --address 0.0.0.0 svc/nginx -n web-services 8088:80 > /dev/null 2>&1 &
+#echo -e "\n\nSetting up port forward for nginx.\n"
+#kubectl port-forward --address 0.0.0.0 svc/nginx -n web-services 8088:80 > /dev/null 2>&1 &
 
-printf "You can now access the nginx deployment at \033[33;32mhttp://$HOSTNAME:8088\033[33;37m\n"
+printf "You can now access the nginx deployment at \033[33;32mhttp://$HOSTNAME\033[33;37m\n"
