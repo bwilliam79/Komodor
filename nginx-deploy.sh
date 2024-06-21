@@ -16,6 +16,7 @@ kubectl create namespace web-services >> $LOG_FILE 2>&1
 argocd app create nginx --repo https://github.com/bwilliam79/Komodor-App.git --dest-server https://kubernetes.default.svc --path nginx --dest-namespace web-services >> $LOG_FILE 2>&1
 argocd app set nginx --sync-option Replace=true >> $LOG_FILE 2>&1
 argocd app sync nginx >> $LOG_FILE 2>&1
+argocd app set nginx --sync-policy automated
 
 echo -en "Waiting for nginx deployment to complete."
 until kubectl get pods -n web-services | grep nginx | grep -i 'running' | grep 1/1 >> $LOG_FILE 2>&1
