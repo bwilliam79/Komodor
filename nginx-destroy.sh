@@ -17,4 +17,6 @@ argocd app delete nginx >> $LOG_FILE 2>&1
 echo -e "Removing port forward for nginx service.\n"
 kill -HUP `ps -ax | grep port-forward | grep web-services | awk '{$1=$1};1' | cut -f 1 -d ' '` >> $LOG_FILE 2>&1
 
+kubectl delete namespace web-services >> $LOG_FILE 2>&1
+
 echo -e "nginx deployment destroyed!"
