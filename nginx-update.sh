@@ -14,7 +14,7 @@ argocd login komodor:8080 --insecure --username admin --password $ARGOCD_PASSWOR
 echo -e "Syncing nginx deployment via Argo CD.\n"
 argocd app sync nginx >> $LOG_FILE 2>&1
 
-echo -en "Waiting for nginx deployment to stabilize."
+echo -en "Waiting for nginx deployment to stabilize.\n"
 until kubectl get pods -n web-services | grep nginx | grep -i 'running' | grep 1/1 >> $LOG_FILE 2>&1
 do
     echo -n "."
