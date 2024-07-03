@@ -25,4 +25,4 @@ do
     sleep 2
 done
 
-printf "\n\nYou can now access the nginx deployment at \033[33;32mhttp://$HOSTNAME\033[33;37m\n"
+printf "\n\nYou can now access the nginx deployment at \033[33;32mhttp://$HOSTNAME/nginx\033[33;37m\n"
